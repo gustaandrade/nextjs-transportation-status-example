@@ -1,7 +1,7 @@
 export interface PokeData {
   id: number;
   name: string;
-  sprites: Sprite[];
+  sprites: Sprite;
 }
 
 interface Sprite {

@@ -1,5 +1,8 @@
+import React, { useEffect, useState } from 'react';
+
 import { useGetItemRequest } from '../../hooks/useGetItemRequest';
-import styles from './index.module.css';
+import PokeItemSkeleton from '../PokeItemSkeleton';
+import styles from './styles.module.css';
 
 // export async function getStaticProps() {
 //   const lineData = useGetLineRequest(4);
@@ -8,18 +11,23 @@ import styles from './index.module.css';
 const PokeItem: React.FC = () => {
   const pokeData = useGetItemRequest(25);
 
-  console.log(pokeData);
-
   return (
     <div className={styles.container}>
-      <div className={styles.line_identifier}>
-        {pokeData !== null && <p>{pokeData.id}</p>}
-        {pokeData === null && <p>null</p>}
-      </div>
-      <div className={styles.line_description}>
-        {pokeData !== null && <p>{pokeData.name}</p>}
-        {pokeData === null && <p>null</p>}
-      </div>
+      {/* <PokeItemSkeleton /> */}
+
+      {pokeData === null && <PokeItemSkeleton />}
+
+      {pokeData !== null && (
+        <div className={styles.card}>
+          <div className={styles.photo}>
+            <img src={pokeData.sprites.front_default} alt={pokeData.name} />
+          </div>
+          <div className={styles.description}>
+            <p className={styles.poke_number}>#0{pokeData.id}</p>
+            <p className={styles.poke_description}>{pokeData.name}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

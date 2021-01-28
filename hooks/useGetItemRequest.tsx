@@ -25,9 +25,11 @@ export const useGetItemRequest = (pokeId: number): PokeData | null => {
     isFetching: boolean;
     error: Error;
   } = useQuery('pokeData', async () => {
-    return await fetch(`${LINE_BASE_URL}/${pokeId}`, parameters).then((res) =>
-      res.json()
-    );
+    return await fetch(`${LINE_BASE_URL}/${pokeId}`, parameters).then((res) => {
+      const resp = res.json();
+      console.log(resp);
+      return resp;
+    });
   });
 
   if (status === 'loading' || isFetching) {
